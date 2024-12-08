@@ -5,8 +5,11 @@ import { NQueensSimulation } from '@/components/n-queens-simulation'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Slider } from '@/components/ui/slider'
-import { motion } from 'framer-motion'
+import { motion, MotionProps } from 'framer-motion'
 import { Footer } from '@/components/footer'
+
+// Create a custom motion.div component with proper typing
+const MotionDiv = motion.div as React.FC<MotionProps & React.HTMLProps<HTMLDivElement>>
 
 export default function Home() {
   const [boardSize, setBoardSize] = useState(4)
@@ -23,15 +26,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground p-8">
-      <motion.div
+      <MotionDiv
+        className="text-4xl font-bold mb-8"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-4xl font-bold mb-8">N-Queens Backtracking Simulation</h1>
-      </motion.div>
+        N-Queens Backtracking Simulation
+      </MotionDiv>
       <div className="space-y-6">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -49,9 +53,9 @@ export default function Home() {
               ))}
             </SelectContent>
           </Select>
-        </motion.div>
+        </MotionDiv>
 
-        <motion.div
+        <MotionDiv
           className="space-y-4"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -73,20 +77,19 @@ export default function Home() {
             />
             <p className="text-sm mt-2">Current speed: {Math.round(1000 / simulationSpeed * 100) / 100} steps/second</p>
           </div>
-        </motion.div>
+        </MotionDiv>
 
         {isSimulating && (
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
             <NQueensSimulation boardSize={boardSize} simulationSpeed={simulationSpeed} />
-          </motion.div>
+          </MotionDiv>
         )}
       </div>
       <Footer />
     </div>
   )
 }
-
